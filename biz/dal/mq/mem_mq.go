@@ -2,7 +2,7 @@ package mq
 
 import (
 	"encoding/gob"
-	"github.com/CloudGoSight/cloudgosight_api/biz/aria2"
+	"github.com/CloudGoSight/cloudgosight_api/biz/aria2/event"
 	"strconv"
 	"sync"
 	"time"
@@ -24,7 +24,7 @@ type CallbackFunc func(Message)
 
 // MQ 消息队列
 type MQ interface {
-	aria2.Notifier
+	event.Notifier
 
 	// 发布一个消息
 	Publish(string, Message)
@@ -59,7 +59,7 @@ func init() {
 	// gob 编解码
 	// todo 改成sonic
 	gob.Register(Message{})
-	gob.Register([]aria2.Event{})
+	gob.Register([]event.Event{})
 }
 
 func (i *inMemoryMQ) Publish(topic string, message Message) {
@@ -124,7 +124,7 @@ func (i *inMemoryMQ) Unsubscribe(topic string, sub <-chan Message) {
 	i.topics[topic] = newSubs
 }
 
-func (i *inMemoryMQ) Aria2Notify(events []aria2.Event, status int) {
+func (i *inMemoryMQ) Aria2Notify(events []event.Event, status int) {
 	for _, event := range events {
 		i.Publish(event.Gid, Message{
 			TriggeredBy: event.Gid,
@@ -135,31 +135,31 @@ func (i *inMemoryMQ) Aria2Notify(events []aria2.Event, status int) {
 }
 
 // OnDownloadStart 下载开始
-func (i *inMemoryMQ) OnDownloadStart(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Downloading)
+func (i *inMemoryMQ) OnDownloadStart(events []event.Event) {
+	i.Aria2Notify(events, event.Downloading)
 }
 
 // OnDownloadPause 下载暂停
-func (i *inMemoryMQ) OnDownloadPause(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Paused)
+func (i *inMemoryMQ) OnDownloadPause(events []event.Event) {
+	i.Aria2Notify(events, event.Paused)
 }
 
 // OnDownloadStop 下载停止
-func (i *inMemoryMQ) OnDownloadStop(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Canceled)
+func (i *inMemoryMQ) OnDownloadStop(events []event.Event) {
+	i.Aria2Notify(events, event.Canceled)
 }
 
 // OnDownloadComplete 下载完成
-func (i *inMemoryMQ) OnDownloadComplete(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Complete)
+func (i *inMemoryMQ) OnDownloadComplete(events []event.Event) {
+	i.Aria2Notify(events, event.Complete)
 }
 
 // OnDownloadError 下载出错
-func (i *inMemoryMQ) OnDownloadError(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Error)
+func (i *inMemoryMQ) OnDownloadError(events []event.Event) {
+	i.Aria2Notify(events, event.Error)
 }
 
 // OnBtDownloadComplete BT下载完成
-func (i *inMemoryMQ) OnBtDownloadComplete(events []aria2.Event) {
-	i.Aria2Notify(events, aria2.Complete)
+func (i *inMemoryMQ) OnBtDownloadComplete(events []event.Event) {
+	i.Aria2Notify(events, event.Complete)
 }

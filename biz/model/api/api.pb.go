@@ -386,7 +386,7 @@ var (
 	// optional string any = 50208;
 	E_Any = &file_api_proto_extTypes[23]
 	// optional string gen_path = 50301;
-	E_GenPath = &file_api_proto_extTypes[24] // The path specified by the user when the client code is generated, with a higher priority than api_version
+	E_GenPath = &file_api_proto_extTypes[24] // The path specified by the model_gen when the client code is generated, with a higher priority than api_version
 	// optional string api_version = 50302;
 	E_ApiVersion = &file_api_proto_extTypes[25] // Specify the value of the :version variable in path when the client code is generated
 	// optional string tag = 50303;

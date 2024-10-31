@@ -4,7 +4,45 @@ package user
 
 import (
 	"context"
-
+	"github.com/CloudGoSight/cloudgosight_api/biz/model/model_gen"
+	"github.com/CloudGoSight/cloudgosight_api/biz/tool"
+	"github.com/CloudGoSight/cloudgosight_idl/kitex_gen/base"
+	cloudgosight "github.com/CloudGoSight/cloudgosight_idl/kitex_gen/cloudgosight"
+	"github.com/CloudGoSight/cloudgosight_idl/kitex_gen/cloudgosight/userservice"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/kitex/client"
+	"log"
+	"net/http"
 )
+
+func UserLogin(ctx context.Context, c *app.RequestContext) {
+	req := &model_gen.UserLoginRequest{}
+	if err := c.BindAndValidate(&req); err != nil {
+		c.JSON(http.StatusOK, tool.NewErrorMap(1, "参数校验失败", err))
+	}
+
+	cli, err := userservice.NewClient("cloudgosight.rpc_account", client.WithHostPorts("0.0.0.0:8888"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rpcReq := cloudgosight.NewUserLoginRequest()
+	rpcResp, err := cli.UserLogin(context.Background(), rpcReq)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	resp := new(cloudgosight.UserLoginResponse)
+	resp.BaseResp = new(base.BaseResp)
+	if rpcResp.BaseResp.StatusCode == 200 {
+		resp.BaseResp.StatusCode = 200
+		//登陆成功，清空并设置session
+		tool.SetSession(c, map[string]interface{}{
+			"user_id": rpcResp.User.UserId,
+		})
+	} else {
+		resp.BaseResp.StatusCode = 400
+	}
+
+	c.JSON(consts.StatusOK, resp)
+}

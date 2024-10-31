@@ -18,7 +18,7 @@ func CurrentUser() app.HandlerFunc {
 		if uid != nil {
 			user, err := model.GetActiveUserByID(uid)
 			if err == nil {
-				c.Set("user", &user)
+				c.Set("model_gen", &user)
 			}
 		}
 		c.Next(ctx)
@@ -29,7 +29,10 @@ func CurrentUser() app.HandlerFunc {
 // 初始化session
 // return func(ctx context.Context, c *app.RequestContext) {} 内部的逻辑在每次请求时都执行，但外部逻辑只执行一次
 func Session(secret string) app.HandlerFunc {
-	store, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte(secret))
+	store, err := redis.NewStore(10, "tcp", "192.168.255.129:6379", "", []byte(secret))
+	if err != nil {
+
+	}
 
 	sameSiteMode := http.SameSiteDefaultMode
 	switch strings.ToLower(conf.CORSConfig.SameSite) {

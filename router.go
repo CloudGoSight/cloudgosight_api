@@ -3,7 +3,9 @@
 package main
 
 import (
-	handler "cloudgosight_api/biz/handler"
+	"github.com/CloudGoSight/cloudgosight_api/biz/handler"
+	"github.com/CloudGoSight/cloudgosight_api/biz/handler/user"
+	"github.com/CloudGoSight/cloudgosight_api/middleware"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -11,5 +13,22 @@ import (
 func customizedRegister(r *server.Hertz) {
 	r.GET("/ping", handler.Ping)
 
-	// your code ...
+	userReq := r.Group("/model_gen")
+	{
+		// 用户登录
+		userReq.POST("session", middleware.CaptchaRequired(), user.UserLogin)
+		// 用户注册
+		userReq.POST("",
+			middleware.IsFunctionEnabled("register_enabled"),
+			middleware.CaptchaRequired("reg_captcha"),
+			controllers.UserRegister,
+		) // 用户登录
+		userReq.POST("session", middleware.CaptchaRequired("login_captcha"), controllers.UserLogin)
+		// 用户注册
+		userReq.POST("",
+			middleware.IsFunctionEnabled("register_enabled"),
+			middleware.CaptchaRequired("reg_captcha"),
+			controllers.UserRegister,
+		)
+	}
 }

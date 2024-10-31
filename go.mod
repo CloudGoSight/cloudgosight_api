@@ -2,9 +2,10 @@ module github.com/CloudGoSight/cloudgosight_api
 
 go 1.22
 
-//replace gitlab.com/VoyageLointain/go_server_idl => gitlab.com/VoyageLointain/go_server_idl v0.0.4
+replace github.com/CloudGoSight/cloudgosight_idl => ../cloudgosight_idl
 
 require (
+	github.com/CloudGoSight/cloudgosight_idl v0.0.3
 	github.com/cloudwego/hertz v0.9.1
 	github.com/fatih/color v1.18.0
 	github.com/go-ini/ini v1.67.0
@@ -20,14 +21,15 @@ require (
 
 require (
 	github.com/bytedance/go-tagexpr/v2 v2.9.2 // indirect
-	github.com/bytedance/gopkg v0.0.0-20230728082804-614d0af6619b // indirect
+	github.com/bytedance/gopkg v0.1.1 // indirect
 	github.com/bytedance/mockey v1.2.7 // indirect
-	github.com/bytedance/sonic v1.11.8 // indirect
-	github.com/bytedance/sonic/loader v0.1.1 // indirect
+	github.com/bytedance/sonic v1.12.2 // indirect
+	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
-	github.com/cloudwego/netpoll v0.6.0 // indirect
+	github.com/cloudwego/kitex v0.11.3 // indirect
+	github.com/cloudwego/netpoll v0.6.4 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
@@ -58,7 +60,7 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/tidwall/gjson v1.14.4 // indirect
+	github.com/tidwall/gjson v1.17.3 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect

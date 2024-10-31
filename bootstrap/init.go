@@ -4,7 +4,6 @@ import (
 	"github.com/CloudGoSight/cloudgosight_api/biz/aria2"
 	"github.com/CloudGoSight/cloudgosight_api/biz/crontab"
 	"github.com/CloudGoSight/cloudgosight_api/biz/dal/mq"
-	"github.com/CloudGoSight/cloudgosight_api/biz/dal/redis"
 	"github.com/CloudGoSight/cloudgosight_api/biz/task"
 	"github.com/CloudGoSight/cloudgosight_api/conf"
 	"io/fs"
@@ -21,7 +20,7 @@ func Init(path string, statics fs.FS) {
 		{
 			"both",
 			func() {
-				redis.Init()
+				//redis.Init()
 			},
 		},
 		{

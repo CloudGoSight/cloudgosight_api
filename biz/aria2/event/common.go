@@ -1,4 +1,4 @@
-package aria2
+package event
 
 const (
 	// URLTask 从URL添加的任务
