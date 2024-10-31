@@ -4,7 +4,7 @@
 // 	protoc        v5.27.1
 // source: user_api.proto
 
-package user
+package model_gen
 
 import (
 	_ "cloudgosight_api/biz/model/api"
@@ -447,24 +447,24 @@ func file_user_api_proto_rawDescGZIP() []byte {
 
 var file_user_api_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_user_api_proto_goTypes = []interface{}{
-	(*UserLoginRequest)(nil),     // 0: cloudgosight.api.user.UserLoginRequest
-	(*UserLoginResponse)(nil),    // 1: cloudgosight.api.user.UserLoginResponse
-	(*UserLogoutRequest)(nil),    // 2: cloudgosight.api.user.UserLogoutRequest
-	(*UserLogoutResponse)(nil),   // 3: cloudgosight.api.user.UserLogoutResponse
-	(*UserRegisterRequest)(nil),  // 4: cloudgosight.api.user.UserRegisterRequest
-	(*UserRegisterResponse)(nil), // 5: cloudgosight.api.user.UserRegisterResponse
-	(*GetSelfInfoRequest)(nil),   // 6: cloudgosight.api.user.GetSelfInfoRequest
-	(*GetSelfInfoResponse)(nil),  // 7: cloudgosight.api.user.GetSelfInfoResponse
+	(*UserLoginRequest)(nil),     // 0: cloudgosight.api.model_gen.UserLoginRequest
+	(*UserLoginResponse)(nil),    // 1: cloudgosight.api.model_gen.UserLoginResponse
+	(*UserLogoutRequest)(nil),    // 2: cloudgosight.api.model_gen.UserLogoutRequest
+	(*UserLogoutResponse)(nil),   // 3: cloudgosight.api.model_gen.UserLogoutResponse
+	(*UserRegisterRequest)(nil),  // 4: cloudgosight.api.model_gen.UserRegisterRequest
+	(*UserRegisterResponse)(nil), // 5: cloudgosight.api.model_gen.UserRegisterResponse
+	(*GetSelfInfoRequest)(nil),   // 6: cloudgosight.api.model_gen.GetSelfInfoRequest
+	(*GetSelfInfoResponse)(nil),  // 7: cloudgosight.api.model_gen.GetSelfInfoResponse
 }
 var file_user_api_proto_depIdxs = []int32{
-	0, // 0: cloudgosight.api.user.UserService.Login:input_type -> cloudgosight.api.user.UserLoginRequest
-	2, // 1: cloudgosight.api.user.UserService.Logout:input_type -> cloudgosight.api.user.UserLogoutRequest
-	4, // 2: cloudgosight.api.user.UserService.Register:input_type -> cloudgosight.api.user.UserRegisterRequest
-	6, // 3: cloudgosight.api.user.UserService.GetSelfInfo:input_type -> cloudgosight.api.user.GetSelfInfoRequest
-	1, // 4: cloudgosight.api.user.UserService.Login:output_type -> cloudgosight.api.user.UserLoginResponse
-	3, // 5: cloudgosight.api.user.UserService.Logout:output_type -> cloudgosight.api.user.UserLogoutResponse
-	5, // 6: cloudgosight.api.user.UserService.Register:output_type -> cloudgosight.api.user.UserRegisterResponse
-	7, // 7: cloudgosight.api.user.UserService.GetSelfInfo:output_type -> cloudgosight.api.user.GetSelfInfoResponse
+	0, // 0: cloudgosight.api.model_gen.UserService.Login:input_type -> cloudgosight.api.model_gen.UserLoginRequest
+	2, // 1: cloudgosight.api.model_gen.UserService.Logout:input_type -> cloudgosight.api.model_gen.UserLogoutRequest
+	4, // 2: cloudgosight.api.model_gen.UserService.Register:input_type -> cloudgosight.api.model_gen.UserRegisterRequest
+	6, // 3: cloudgosight.api.model_gen.UserService.GetSelfInfo:input_type -> cloudgosight.api.model_gen.GetSelfInfoRequest
+	1, // 4: cloudgosight.api.model_gen.UserService.Login:output_type -> cloudgosight.api.model_gen.UserLoginResponse
+	3, // 5: cloudgosight.api.model_gen.UserService.Logout:output_type -> cloudgosight.api.model_gen.UserLogoutResponse
+	5, // 6: cloudgosight.api.model_gen.UserService.Register:output_type -> cloudgosight.api.model_gen.UserRegisterResponse
+	7, // 7: cloudgosight.api.model_gen.UserService.GetSelfInfo:output_type -> cloudgosight.api.model_gen.GetSelfInfoResponse
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

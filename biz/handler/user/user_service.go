@@ -4,7 +4,46 @@ package user
 
 import (
 	"context"
-
+	"github.com/CloudGoSight/cloudgosight_api/biz/model/model_gen"
+	"github.com/CloudGoSight/cloudgosight_api/biz/tool"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"net/http"
 )
+
+func UserLogin(ctx context.Context, c *app.RequestContext) {
+	req := &model_gen.UserLoginRequest{}
+	if err := c.BindAndValidate(&req); err != nil {
+		c.JSON(http.StatusOK, tool.NewErrorMap(1, "参数校验失败", err))
+	}
+
+	expectedUser, err := model.GetUserByEmail(service.UserName)
+	// 一系列校验
+	if err != nil {
+		return serializer.Err(serializer.CodeCredentialInvalid, "Wrong password or email address", err)
+	}
+	if authOK, _ := expectedUser.CheckPassword(service.Password); !authOK {
+		return serializer.Err(serializer.CodeCredentialInvalid, "Wrong password or email address", nil)
+	}
+	if expectedUser.Status == model.Baned || expectedUser.Status == model.OveruseBaned {
+		return serializer.Err(serializer.CodeUserBaned, "This account has been blocked", nil)
+	}
+	if expectedUser.Status == model.NotActivicated {
+		return serializer.Err(serializer.CodeUserNotActivated, "This account is not activated", nil)
+	}
+
+	if expectedUser.TwoFactor != "" {
+		// 需要二步验证
+		util.SetSession(c, map[string]interface{}{
+			"2fa_user_id": expectedUser.ID,
+		})
+		return serializer.Response{Code: 203}
+	}
+
+	//登陆成功，清空并设置session
+	util.SetSession(c, map[string]interface{}{
+		"user_id": expectedUser.ID,
+	})
+
+	return serializer.BuildUserResponse(expectedUser)
+
+}

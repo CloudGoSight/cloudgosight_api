@@ -1,6 +1,7 @@
-package util
+package tool
 
 import (
+	"github.com/cloudwego/hertz/pkg/common/utils"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -27,7 +28,7 @@ func Exists(path string) bool {
 *
 替换content的某些字段
 
-	result := util.Replace(map[string]string{
+	result := tool.Replace(map[string]string{
 	"xxx": "111",
 	"yyy": "222",
 	}, "xxx + yyy")
@@ -43,7 +44,7 @@ func Replace(table map[string]string, content string) string {
 
 /*
 *
-util.RandStringRunes(5)
+tool.RandStringRunes(5)
 output:a6hro
 */
 func RandStringRunes(n int) string {
@@ -65,4 +66,18 @@ func CreateNestedFile(path string) (*os.File, error) {
 		}
 	}
 	return os.Create(path)
+}
+
+func NewErrorMap(code int, msg string, err error) utils.H {
+	if err == nil {
+		return utils.H{
+			"code": code,
+			"msg":  msg,
+		}
+	}
+	return utils.H{
+		"code": code,
+		"msg":  msg,
+		"err":  err.Error(),
+	}
 }

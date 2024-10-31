@@ -1,4 +1,4 @@
-package aria2
+package event
 
 type Event struct {
 	Gid string `json:"gid"` // GID of the download
@@ -10,7 +10,7 @@ type Notifier interface {
 	OnDownloadStart([]Event)
 	// OnDownloadPause will be sent when a download is paused.
 	OnDownloadPause([]Event)
-	// OnDownloadStop will be sent when a download is stopped by the user.
+	// OnDownloadStop will be sent when a download is stopped by the model_gen.
 	OnDownloadStop([]Event)
 	// OnDownloadComplete will be sent when a download is complete. For BitTorrent downloads, this notification is sent when the download is complete and seeding is over.
 	OnDownloadComplete([]Event)
